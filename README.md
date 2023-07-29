@@ -75,6 +75,124 @@ The Issue Tracker GraphQL API is a powerful system for managing software develop
 - `createComponent(projectId: ID!, title: String!, description: String): Component`: Create a new component within a project.
 - `updateComponent(componentId: ID!, title: String, description: String): Component`: Update the title or description of a component.
 
+## GraphQL Models
+
+```graphql
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum Status {
+  OPEN
+  CLOSED
+}
+
+type Comment {
+  id: ID!
+  content: String!
+}
+
+type Attachment {
+  id: ID!
+  fileUrl: String!
+  description: String
+}
+
+type Issue {
+  id: ID!
+  title: String!
+  description: String!
+  priority: Priority!
+  status: Status!
+  assignee: String!
+  labels: [String!]!
+  tags: [String!]!
+  comments: [Comment!]!
+  attachments: [Attachment!]!
+}
+
+type Milestone {
+  id: ID!
+  title: String!
+  dueDate: String!
+}
+
+type Project {
+  id: ID!
+  title: String!
+  description: String!
+}
+
+type Component {
+  id: ID!
+  title: String!
+  description: String
+}
+
+type Query {
+  getAllIssues: [Issue!]!
+  getIssueById(issueId: ID!): Issue
+  searchIssues(keywords: String!, status: String, priority: String, assignee: String): [Issue!]!
+  getOpenIssues: [Issue!]!
+  getClosedIssues: [Issue!]!
+  getHighPriorityIssues: [Issue!]!
+  getMediumPriorityIssues: [Issue!]!
+  getLowPriorityIssues: [Issue!]!
+  getIssuesCreatedAfter(date: String!): [Issue!]!
+  getIssuesCreatedBefore(date: String!): [Issue!]!
+  getIssuesByAuthor(authorId: ID!): [Issue!]!
+  getIssuesByLabel(label: String!): [Issue!]!
+  getIssuesByMilestone(milestone: String!): [Issue!]!
+  getIssuesByTag(tag: String!): [Issue!]!
+  getAssignedIssues(assigneeId: ID!): [Issue!]!
+  getUnassignedIssues: [Issue!]!
+  getIssuesByProject(projectId: ID!): [Issue!]!
+  getIssuesByComponent(component: String!): [Issue!]!
+  getIssuesByEpic(epicId: ID!): [Issue!]!
+  getIssuesByRelatedIssue(issueId: ID!): [Issue!]!
+  getIssuesWithAttachments: [Issue!]!
+  getIssuesWithoutAssignee: [Issue!]!
+  getIssuesByWatchers(watcherId: ID!): [Issue!]!
+  getIssuesByStatus(status: String!): [Issue!]!
+  getIssuesByPriority(priority: String!): [Issue!]!
+  getIssuesByAssignee(assignee: String!): [Issue!]!
+}
+
+type Mutation {
+  createIssue(title: String!, description: String!, priority: Priority!, assignee: String!): Issue
+  updateIssue(issueId: ID!, title: String, description: String, priority: Priority, status: Status, assignee: String): Issue
+  changeIssueStatus(issueId: ID!, status: Status!): Issue
+  deleteIssue(issueId: ID!): ID
+  assignIssue(issueId: ID!, assignee: String!): Issue
+  updateIssueStatus(issueId: ID!, status: Status!): Issue
+  updateIssuePriority(issueId: ID!, priority: Priority!): Issue
+  deleteAllClosedIssues: Boolean
+  deleteAllIssues: Boolean
+  addLabelToIssue(issueId: ID!, label: String!): Issue
+  removeLabelFromIssue(issueId: ID!, label: String!): Issue
+  addTagToIssue(issueId: ID!, tag: String!): Issue
+  removeTagFromIssue(issueId: ID!, tag: String!): Issue
+  addCommentToIssue(issueId: ID!, content: String!): Comment
+  updateComment(commentId: ID!, content: String!): Comment
+  deleteComment(commentId: ID!): ID
+  addWatcherToIssue(issueId: ID!, watcherId: ID!): Issue
+  removeWatcherFromIssue(issueId: ID!, watcherId: ID!): Issue
+  addAttachmentToIssue(issueId: ID!, fileUrl: String!, description: String): Issue
+  updateAttachmentDescription(attachmentId: ID!, description: String!): Attachment
+  deleteAttachment(attachmentId: ID!): ID
+  createMilestone(title: String!, dueDate: String!): Milestone
+  updateMilestone(milestoneId: ID!, title: String, dueDate: String): Milestone
+  deleteMilestone(milestoneId: ID!): ID
+  createProject(title: String!, description: String!): Project
+  updateProject(projectId: ID!, title: String, description: String): Project
+  deleteProject(projectId: ID!): ID
+  createComponent(projectId: ID!, title: String!, description: String): Component
+  updateComponent(componentId: ID!, title: String, description: String): Component
+}
+```
+
 ## Getting Started
 
 To set up the Issue Tracker GraphQL API and start using it, follow the installation and setup instructions provided in the Installation Guide.
