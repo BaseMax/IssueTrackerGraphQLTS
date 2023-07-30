@@ -1,0 +1,29 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Issue {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Query {
+  issue(id: Int!): Issue!
+}
+
+type Mutation {
+  createIssue(createIssueInput: CreateIssueInput!): Issue!
+  updateIssue(updateIssueInput: UpdateIssueInput!): Issue!
+  removeIssue(id: Int!): Issue!
+}
+
+input CreateIssueInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateIssueInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
