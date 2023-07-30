@@ -197,6 +197,40 @@ type Mutation {
 
 To set up the Issue Tracker GraphQL API and start using it, follow the installation and setup instructions provided in the Installation Guide.
 
+## installation
+
+You must install the required packages .
+Try the following command :
+
+```
+npm install 
+
+```
+
+## Create Database 
+
+One of the requirements of project implementation is to have a database
+
+Postgres is used by default
+
+After creating the database, put all its information in the env file .
+
+
+```
+mv ./.env.example ./.env
+```
+
+
+## Run app 
+
+great ! 
+
+Now run the app with the following command
+
+```
+npm run start:dev
+```
+
 ## Contributing
 
 We welcome contributions to improve the Issue Tracker API. If you'd like to contribute, please follow the guidelines in the Contribution Guide.
