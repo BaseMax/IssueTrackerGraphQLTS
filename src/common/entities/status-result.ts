@@ -9,5 +9,5 @@ export class StatusResult {
     success : boolean ; 
 
     @Field(()=>String)
-    id? : string  ; 
+    id? : string ; 
 }
