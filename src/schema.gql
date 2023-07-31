@@ -3,26 +3,63 @@
 # ------------------------------------------------------
 
 type Issue {
+  id: ID!
+  title: String!
+  description: String!
+  priority: String!
+  status: String!
+  assignee: String!
+  labels: [String!]!
+  tags: [String!]!
+  comments: [Comment!]!
+}
+
+type Comment {
+  id: ID!
+  content: String!
+  issue: Issue!
+}
+
+type StatusResult {
+  message: String!
+  success: Boolean!
+  id: String!
+}
+
+type Attachment {
   """Example field (placeholder)"""
   exampleField: Int!
 }
 
 type Query {
-  issue(id: Int!): Issue!
+  findOneComment(id: String!): Comment!
+  attachment(id: Int!): Attachment!
 }
 
 type Mutation {
-  createIssue(createIssueInput: CreateIssueInput!): Issue!
-  updateIssue(updateIssueInput: UpdateIssueInput!): Issue!
-  removeIssue(id: Int!): Issue!
+  createComment(createCommentInput: CreateCommentInput!): StatusResult!
+  updateComment(updateCommentInput: UpdateCommentInput!): StatusResult!
+  removeComment(id: String!): StatusResult!
+  createAttachment(createAttachmentInput: CreateAttachmentInput!): Attachment!
+  updateAttachment(updateAttachmentInput: UpdateAttachmentInput!): Attachment!
+  removeAttachment(id: Int!): Attachment!
 }
 
-input CreateIssueInput {
+input CreateCommentInput {
+  content: String!
+}
+
+input UpdateCommentInput {
+  content: String
+  id: String!
+}
+
+input CreateAttachmentInput {
   """Example field (placeholder)"""
   exampleField: Int!
 }
 
-input UpdateIssueInput {
+input UpdateAttachmentInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Int!
