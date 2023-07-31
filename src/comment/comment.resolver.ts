@@ -3,33 +3,30 @@ import { CommentService } from './comment.service';
 import { Comment } from './entities/comment.entity';
 import { CreateCommentInput } from './dto/create-comment.input';
 import { UpdateCommentInput } from './dto/update-comment.input';
+import { StatusResult } from 'src/common/entities/status-result';
+
 
 @Resolver(() => Comment)
 export class CommentResolver {
   constructor(private readonly commentService: CommentService) {}
 
-  @Mutation(() => Comment)
+  @Mutation(() => StatusResult)
   createComment(@Args('createCommentInput') createCommentInput: CreateCommentInput) {
     return this.commentService.create(createCommentInput);
   }
 
-  @Query(() => [Comment], { name: 'comment' })
-  findAll() {
-    return this.commentService.findAll();
-  }
-
-  @Query(() => Comment, { name: 'comment' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  @Query(() => Comment, { name: 'findOneComment' })
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.commentService.findOne(id);
   }
 
-  @Mutation(() => Comment)
+  @Mutation(() => StatusResult)
   updateComment(@Args('updateCommentInput') updateCommentInput: UpdateCommentInput) {
     return this.commentService.update(updateCommentInput.id, updateCommentInput);
   }
 
-  @Mutation(() => Comment)
-  removeComment(@Args('id', { type: () => Int }) id: number) {
+  @Mutation(() => StatusResult)
+  removeComment(@Args('id', { type: () => String }) id: string) {
     return this.commentService.remove(id);
   }
 }
