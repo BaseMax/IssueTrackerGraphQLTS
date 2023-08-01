@@ -1,7 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { IssueService } from 'src/issue/issue.service';
 import { StatusResult } from 'src/shared/status-result/status-result';
 import { Repository } from 'typeorm';
+import { AddCommentToIssueInput } from './dto/add-commnet-to-issue.input';
 import { CreateCommentInput } from './dto/create-comment.input';
 import { UpdateCommentInput } from './dto/update-comment.input';
 import { Comment } from './entities/comment.entity';
@@ -11,7 +13,38 @@ export class CommentService {
   constructor(
     @InjectRepository(Comment) 
     private readonly commentRepo:Repository<Comment> , 
+    private readonly issueService:IssueService , 
   ){}
+
+
+  async addCommentToIssue(addCommentToIssueInput:AddCommentToIssueInput):Promise<StatusResult>{
+    const {
+      id , 
+      content , 
+    } = addCommentToIssueInput ; 
+    let comment : Comment ;
+    
+    try {
+      const issue = await this.issueService.findOne({id }); 
+      comment = await this.commentRepo.create({
+        content , 
+        issue , 
+      }) ;
+
+      await this.commentRepo.save(comment) ; 
+    } catch (error) {
+      return {
+        message : error.message , 
+        success : false  , 
+      }
+    }
+
+    return { 
+      success : true , 
+      message : 'item created successfully' , 
+      id : comment.id , 
+    }
+  }
 
   async create(createCommentInput: CreateCommentInput):Promise<StatusResult>{
     const { content } = createCommentInput ; 
