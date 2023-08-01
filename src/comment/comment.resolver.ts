@@ -11,10 +11,10 @@ import { AddCommentToIssueInput } from './dto/add-commnet-to-issue.input';
 export class CommentResolver {
   constructor(private readonly commentService: CommentService) {}
 
-  @Mutation(() => StatusResult)
-  createComment(@Args('createCommentInput') createCommentInput: CreateCommentInput) {
-    return this.commentService.create(createCommentInput);
-  }
+  // @Mutation(() => StatusResult)
+  // createComment(@Args('createCommentInput') createCommentInput: CreateCommentInput) {
+  //   return this.commentService.create(createCommentInput);
+  // }
 
   @Mutation(() => StatusResult)
   addCommentToIssue(@Args('addCommentToIssueInput') addCommentToIssueInput: AddCommentToIssueInput) {
