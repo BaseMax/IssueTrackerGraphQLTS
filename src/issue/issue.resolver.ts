@@ -3,33 +3,34 @@ import { IssueService } from './issue.service';
 import { Issue } from './entities/issue.entity';
 import { CreateIssueInput } from './dto/create-issue.input';
 import { UpdateIssueInput } from './dto/update-issue.input';
+import { StatusResult } from 'src/common/entities/status-result';
 
 @Resolver(() => Issue)
 export class IssueResolver {
   constructor(private readonly issueService: IssueService) {}
 
-  @Mutation(() => Issue)
+  @Mutation(() => StatusResult)
   createIssue(@Args('createIssueInput') createIssueInput: CreateIssueInput) {
     return this.issueService.create(createIssueInput);
   }
 
-  @Query(() => [Issue], { name: 'issue' })
+  @Query(() => [Issue], { name: 'findAllIssue' })
   findAll() {
     return this.issueService.findAll();
   }
 
   @Query(() => Issue, { name: 'issue' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.issueService.findOne(id);
+  findOne(@Args('id', { type: () => String}) id: string) {
+    return this.issueService.findOne({id});
   }
 
-  @Mutation(() => Issue)
+  @Mutation(() => StatusResult)
   updateIssue(@Args('updateIssueInput') updateIssueInput: UpdateIssueInput) {
     return this.issueService.update(updateIssueInput.id, updateIssueInput);
   }
 
-  @Mutation(() => Issue)
-  removeIssue(@Args('id', { type: () => Int }) id: number) {
+  @Mutation(() => StatusResult)
+  removeIssue(@Args('id', { type: () => String }) id: string) {
     return this.issueService.remove(id);
   }
 }
