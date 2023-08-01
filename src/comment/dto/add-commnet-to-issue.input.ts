@@ -5,7 +5,7 @@ import { IsNotEmpty } from "class-validator";
 export class AddCommentToIssueInput{
     @Field(()=>String)
     @IsNotEmpty() 
-    id : string ; 
+    issueId : string ; 
     
     @Field(()=>String)
     @IsNotEmpty()
