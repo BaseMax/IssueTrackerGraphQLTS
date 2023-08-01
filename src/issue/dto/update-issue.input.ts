@@ -1,8 +1,10 @@
 import { CreateIssueInput } from './create-issue.input';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { InputType, Field, PartialType } from '@nestjs/graphql';
+import { IsNotEmpty } from 'class-validator';
 
 @InputType()
 export class UpdateIssueInput extends PartialType(CreateIssueInput) {
-  @Field(() => Int)
-  id: number;
+  @Field(()=>String)
+  @IsNotEmpty()
+  id : string  
 }

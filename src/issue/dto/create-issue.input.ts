@@ -25,7 +25,6 @@ export class CreateIssueInput {
   @IsNotEmpty()
   assignee : string ; 
 
-
   @Field(()=>[String])
   @IsNotEmpty()
   labels : string[] ; 
