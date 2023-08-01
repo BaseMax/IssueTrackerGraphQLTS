@@ -20,11 +20,11 @@ export class Issue {
   description : string ; 
 
   @Field(()=>String)
-  @Column({ type : 'enum' , enum : Priority , nullable : false })
+  @Column({ type : 'varchar' , nullable : false })
   priority : Priority ;
 
   @Field(()=>String)
-  @Column({ type : 'enum' , enum : Status , array : true ,nullable : false })
+  @Column({ type : 'varchar' ,nullable : false })
   status : Status;
 
   @Field(()=>String)
