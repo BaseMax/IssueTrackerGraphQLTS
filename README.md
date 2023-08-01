@@ -2,6 +2,16 @@
 
 The Issue Tracker GraphQL API is a powerful system for managing software development projects and tracking issues. It allows users to create, update, and manage issues efficiently. This README.md provides an overview of the features, queries, and mutations available in the API.
 
+
+## Demo 
+
+![Demo image](./screenshots/1.png)
+
+![Demo image](./screenshots/2.png)
+
+![Demo image](./screenshots/3.png)
+
+
 ## Features
 
 - **Create Issue:** Users can create a new issue by providing essential details like title, description, priority, and assignee.
