@@ -206,8 +206,23 @@ type Mutation {
 ## Getting Started
 
 To set up the Issue Tracker GraphQL API and start using it, follow the installation and setup instructions provided in the Installation Guide.
+ 
 
 ## installation
+
+Clone the repository 
+
+```
+git clone https://github.com/BaseMax/IssueTrackerGraphQLTS.git
+
+```
+
+Navigate to the project directory:
+
+```
+cd IssueTrackerGraphQLTS
+
+```
 
 You must install the required packages .
 Try the following command :
