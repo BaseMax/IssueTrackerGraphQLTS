@@ -2,6 +2,12 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Comment {
+  id: ID!
+  content: String!
+  issue: Issue!
+}
+
 type Issue {
   id: ID!
   title: String!
@@ -12,12 +18,6 @@ type Issue {
   labels: [String!]!
   tags: [String!]!
   comments: [Comment!]!
-}
-
-type Comment {
-  id: ID!
-  content: String!
-  issue: Issue!
 }
 
 type StatusResult {
@@ -33,13 +33,19 @@ type Attachment {
 
 type Query {
   findOneComment(id: String!): Comment!
+  findAllIssue: [Issue!]!
+  issue(id: String!): Issue!
   attachment(id: Int!): Attachment!
 }
 
 type Mutation {
   createComment(createCommentInput: CreateCommentInput!): StatusResult!
+  addCommentToIssue(addCommentToIssueInput: AddCommentToIssueInput!): StatusResult!
   updateComment(updateCommentInput: UpdateCommentInput!): StatusResult!
   removeComment(id: String!): StatusResult!
+  createIssue(createIssueInput: CreateIssueInput!): StatusResult!
+  updateIssue(updateIssueInput: UpdateIssueInput!): StatusResult!
+  removeIssue(id: String!): StatusResult!
   createAttachment(createAttachmentInput: CreateAttachmentInput!): Attachment!
   updateAttachment(updateAttachmentInput: UpdateAttachmentInput!): Attachment!
   removeAttachment(id: Int!): Attachment!
@@ -49,8 +55,34 @@ input CreateCommentInput {
   content: String!
 }
 
+input AddCommentToIssueInput {
+  id: String!
+  content: String!
+}
+
 input UpdateCommentInput {
   content: String
+  id: String!
+}
+
+input CreateIssueInput {
+  title: String!
+  description: String!
+  priority: String!
+  status: String!
+  assignee: String!
+  labels: [String!]!
+  tags: [String!]!
+}
+
+input UpdateIssueInput {
+  title: String
+  description: String
+  priority: String
+  status: String
+  assignee: String
+  labels: [String!]
+  tags: [String!]
   id: String!
 }
 
