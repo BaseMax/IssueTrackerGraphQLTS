@@ -4,6 +4,7 @@ import { Comment } from './entities/comment.entity';
 import { CreateCommentInput } from './dto/create-comment.input';
 import { UpdateCommentInput } from './dto/update-comment.input';
 import { StatusResult } from 'src/common/entities/status-result';
+import { AddCommentToIssueInput } from './dto/add-commnet-to-issue.input';
 
 
 @Resolver(() => Comment)
@@ -13,6 +14,11 @@ export class CommentResolver {
   @Mutation(() => StatusResult)
   createComment(@Args('createCommentInput') createCommentInput: CreateCommentInput) {
     return this.commentService.create(createCommentInput);
+  }
+
+  @Mutation(() => StatusResult)
+  addCommentToIssue(@Args('addCommentToIssueInput') addCommentToIssueInput: AddCommentToIssueInput) {
+    return this.commentService.addCommentToIssue(addCommentToIssueInput);
   }
 
   @Query(() => Comment, { name: 'findOneComment' })
