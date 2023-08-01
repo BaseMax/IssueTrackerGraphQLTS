@@ -19,13 +19,13 @@ export class CommentService {
 
   async addCommentToIssue(addCommentToIssueInput:AddCommentToIssueInput):Promise<StatusResult>{
     const {
-      id , 
+      issueId , 
       content , 
     } = addCommentToIssueInput ; 
     let comment : Comment ;
     
     try {
-      const issue = await this.issueService.findOne({id }); 
+      const issue = await this.issueService.findOne({id : issueId}); 
       comment = await this.commentRepo.create({
         content , 
         issue , 
@@ -46,27 +46,27 @@ export class CommentService {
     }
   }
 
-  async create(createCommentInput: CreateCommentInput):Promise<StatusResult>{
-    const { content } = createCommentInput ; 
-    let comment:Comment ;
+  // async create(createCommentInput: CreateCommentInput):Promise<StatusResult>{
+  //   const { content } = createCommentInput ; 
+  //   let comment:Comment ;
 
-    try {
-      comment = await this.commentRepo.create({ content });
+  //   try {
+  //     comment = await this.commentRepo.create({ content });
 
-      await this.commentRepo.save(comment) ;
-    } catch (error) {
-      return {
-        message : error.message , 
-        success : false , 
-      }
-    }
+  //     await this.commentRepo.save(comment) ;
+  //   } catch (error) {
+  //     return {
+  //       message : error.message , 
+  //       success : false , 
+  //     }
+  //   }
 
-    return {
-      message : 'item created successfully' , 
-      success : true , 
-      id : comment.id , 
-    }; 
-  }
+  //   return {
+  //     message : 'item created successfully' , 
+  //     success : true , 
+  //     id : comment.id , 
+  //   }; 
+  // }
 
 
   async findOne(id:string):Promise<Comment>{
