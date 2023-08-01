@@ -5,6 +5,10 @@ import { IsNotEmpty } from 'class-validator';
 export class CreateAttachmentInput {
   @Field()
   @IsNotEmpty()
+  issueId : string ; 
+  
+  @Field()
+  @IsNotEmpty()
   fileUrl : string ; 
 
   @Field()
