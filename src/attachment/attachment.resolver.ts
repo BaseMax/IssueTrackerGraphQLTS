@@ -14,22 +14,22 @@ export class AttachmentResolver {
     return this.attachmentService.addAttachmentToIssue(createAttachmentInput);
   }
 
-  @Query(() => [Attachment], { name: 'attachment' })
+  @Query(() => [Attachment], { name: 'findAllAttachment' })
   findAll() {
     return this.attachmentService.findAll();
   }
 
-  @Query(() => Attachment, { name: 'attachment' })
+  @Query(() => Attachment, { name: 'findOneAttachment' })
   findOne(@Args('id', { type: () => String }) id: string) {
     return this.attachmentService.findOne(id);
   }
 
-  @Mutation(() => StatusResult)
+  @Mutation(() => StatusResult , {name : 'updateAttachment'})
   updateAttachment(@Args('updateAttachmentInput') updateAttachmentInput: UpdateAttachmentInput) {
     return this.attachmentService.update(updateAttachmentInput.id, updateAttachmentInput);
   }
 
-  @Mutation(() => StatusResult)
+  @Mutation(() => StatusResult , {name : 'removeAttachment'})
   removeAttachment(@Args('id', { type: () => String }) id: string) {
     return this.attachmentService.remove(id);
   }
