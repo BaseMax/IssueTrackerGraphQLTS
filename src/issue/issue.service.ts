@@ -57,12 +57,19 @@ export class IssueService {
     return await this.issueRepo.find({
       relations : {
         comments : true ,
+        attachments : true , 
       }
     })
   }
 
   async findOne(where:Where):Promise<Issue>{
-    const issue = await this.issueRepo.findOne({where , relations:{comments : true}}) ;
+    const issue = await this.issueRepo.findOne({
+      where , 
+      relations:{
+        comments : true , 
+        attachments : true , 
+      }
+    }) ;
 
     if(!issue){
       throw new NotFoundException('issue not found')
