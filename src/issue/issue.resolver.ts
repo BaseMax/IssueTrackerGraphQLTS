@@ -25,18 +25,18 @@ export class IssueResolver {
     return this.issueService.findOne({id});
   }
 
-  @Mutation(() => StatusResult)
+  @Mutation(() => StatusResult , {name : "changeIssueStatus"})
   changeIssueStatus(@Args('changeIssueStatusInput') changeIssueStatusInput: ChangeIssueStatusInput) {
     return this.issueService.changeStatus(changeIssueStatusInput) ;
   }
 
-  @Mutation(() => StatusResult)
+  @Mutation(() => StatusResult , {name : 'updateIssue'})
   updateIssue(@Args('updateIssueInput') updateIssueInput: UpdateIssueInput) {
     return this.issueService.update(updateIssueInput.id, updateIssueInput);
   }
 
-  @Mutation(() => StatusResult)
-  removeIssue(@Args('id', { type: () => String }) id: string) {
+  @Mutation(() => StatusResult , {name: 'removeIssue'})
+  removeIssue(@Args('id', { type: () => String  , name : 'removeIssue'}) id: string) {
     return this.issueService.remove(id);
   }
 }
