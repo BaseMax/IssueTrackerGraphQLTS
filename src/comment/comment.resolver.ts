@@ -16,7 +16,7 @@ export class CommentResolver {
   //   return this.commentService.create(createCommentInput);
   // }
 
-  @Mutation(() => StatusResult)
+  @Mutation(() => StatusResult , {name : 'addCommentToIssue'})
   addCommentToIssue(@Args('addCommentToIssueInput') addCommentToIssueInput: AddCommentToIssueInput) {
     return this.commentService.addCommentToIssue(addCommentToIssueInput);
   }
@@ -26,12 +26,12 @@ export class CommentResolver {
     return this.commentService.findOne(id);
   }
 
-  @Mutation(() => StatusResult)
+  @Mutation(() => StatusResult , {name : 'updateComment'})
   updateComment(@Args('updateCommentInput') updateCommentInput: UpdateCommentInput) {
     return this.commentService.update(updateCommentInput.id, updateCommentInput);
   }
 
-  @Mutation(() => StatusResult)
+  @Mutation(() => StatusResult , {name : 'removeComment'})
   removeComment(@Args('id', { type: () => String }) id: string) {
     return this.commentService.remove(id);
   }
