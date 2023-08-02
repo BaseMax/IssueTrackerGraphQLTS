@@ -8,6 +8,7 @@ import { DatabaseModule } from './config/database.module';
 import { IssueModule } from './issue/issue.module';
 import { CommentModule } from './comment/comment.module';
 import { AttachmentModule } from './attachment/attachment.module';
+import { ProjectModule } from './project/project.module';
 
 
 @Module({
@@ -22,7 +23,8 @@ import { AttachmentModule } from './attachment/attachment.module';
       plugins : [ApolloServerPluginLandingPageGraphQLPlayground()]
     }),
     CommentModule,
-    AttachmentModule 
+    AttachmentModule,
+    ProjectModule 
   ],
 })
 export class AppModule {}
