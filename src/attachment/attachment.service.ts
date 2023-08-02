@@ -14,7 +14,7 @@ export class AttachmentService {
     private readonly attachmentRepo:Repository<Attachment> , 
     private readonly issueService:IssueService , 
   ){}
-  async findAll(createAttachmentInput: CreateAttachmentInput):Promise<Attachment[]>{
+  async findAll():Promise<Attachment[]>{
     return await this.attachmentRepo.find()
   }
 
@@ -62,11 +62,39 @@ export class AttachmentService {
     }
   }
 
-  update(id: number, updateAttachmentInput: UpdateAttachmentInput) {
-    return `This action updates a #${id} attachment`;
+  async update(id: string, updateAttachmentInput: UpdateAttachmentInput):Promise<StatusResult>{
+    const {
+      fileUrl , 
+      description , 
+    } = updateAttachmentInput ; 
+
+
+    try {
+      await this.findOne(id);
+
+      await this.attachmentRepo.update({id} , {
+        fileUrl , 
+        description , 
+      })
+    } catch (error) {
+      return {
+        success : false , 
+        message : error.message ,
+      }
+    }
+
+    return {
+      message : 'item edited successfully' , 
+      success : true , 
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} attachment`;
+  async remove(id:string):Promise<StatusResult>{
+    await this.attachmentRepo.delete({id}) ; 
+
+    return {
+      message : 'item removed successfully' , 
+      success : true , 
+    }
   }
 }

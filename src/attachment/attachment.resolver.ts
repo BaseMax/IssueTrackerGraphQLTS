@@ -3,14 +3,15 @@ import { AttachmentService } from './attachment.service';
 import { Attachment } from './entities/attachment.entity';
 import { CreateAttachmentInput } from './dto/create-attachment.input';
 import { UpdateAttachmentInput } from './dto/update-attachment.input';
+import { StatusResult } from 'src/common/entities/status-result';
 
 @Resolver(() => Attachment)
 export class AttachmentResolver {
   constructor(private readonly attachmentService: AttachmentService) {}
 
-  @Mutation(() => Attachment)
-  createAttachment(@Args('createAttachmentInput') createAttachmentInput: CreateAttachmentInput) {
-    return this.attachmentService.create(createAttachmentInput);
+  @Mutation(() => StatusResult)
+  addAttachmentToIssue(@Args('createAttachmentInput') createAttachmentInput: CreateAttachmentInput) {
+    return this.attachmentService.addAttachmentToIssue(createAttachmentInput);
   }
 
   @Query(() => [Attachment], { name: 'attachment' })
@@ -19,17 +20,17 @@ export class AttachmentResolver {
   }
 
   @Query(() => Attachment, { name: 'attachment' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.attachmentService.findOne(id);
   }
 
-  @Mutation(() => Attachment)
+  @Mutation(() => StatusResult)
   updateAttachment(@Args('updateAttachmentInput') updateAttachmentInput: UpdateAttachmentInput) {
     return this.attachmentService.update(updateAttachmentInput.id, updateAttachmentInput);
   }
 
-  @Mutation(() => Attachment)
-  removeAttachment(@Args('id', { type: () => Int }) id: number) {
+  @Mutation(() => StatusResult)
+  removeAttachment(@Args('id', { type: () => String }) id: string) {
     return this.attachmentService.remove(id);
   }
 }
