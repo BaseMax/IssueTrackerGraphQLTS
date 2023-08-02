@@ -5,11 +5,21 @@ The Issue Tracker GraphQL API is a powerful system for managing software develop
 
 ## Demo 
 
+
 ![Demo image](./screenshots/1.png)
 
 ![Demo image](./screenshots/2.png)
 
 ![Demo image](./screenshots/3.png)
+
+![Demo image](./screenshots/4.png)
+
+![Demo image](./screenshots/5.png)
+
+![Demo image](./screenshots/6.png)
+
+![Demo image](./screenshots/7.png)
+
 
 
 ## Features
