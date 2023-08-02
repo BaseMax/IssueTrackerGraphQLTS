@@ -224,14 +224,12 @@ Clone the repository
 
 ```
 git clone https://github.com/BaseMax/IssueTrackerGraphQLTS.git
-
 ```
 
 Navigate to the project directory:
 
 ```
 cd IssueTrackerGraphQLTS
-
 ```
 
 You must install the required packages .
