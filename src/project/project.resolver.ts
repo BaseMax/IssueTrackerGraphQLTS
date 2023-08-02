@@ -14,12 +14,12 @@ export class ProjectResolver {
     return this.projectService.create(createProjectInput);
   }
 
-  @Query(() => [Project], { name: 'project' })
+  @Query(() => [Project], { name: 'findAllProject' })
   findAll() {
     return this.projectService.findAll();
   }
 
-  @Query(() => StatusResult, { name: 'project' })
+  @Query(() => StatusResult, { name: 'findOneProject' })
   findOne(@Args('id', { type: () => String }) id: string) {
     return this.projectService.findOne(id);
   }
@@ -29,8 +29,8 @@ export class ProjectResolver {
     return this.projectService.update(updateProjectInput.id, updateProjectInput);
   }
 
-  @Mutation(() => StatusResult)
-  removeProject(@Args('id', { type: () => String }) id:string) {
+  @Mutation(() => StatusResult , {name : 'removeProject'})
+  removeProject(@Args('id', { type: () => String}) id:string) {
     return this.projectService.remove(id);
   }
 }
