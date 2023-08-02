@@ -44,8 +44,10 @@ type Query {
   findOneComment(id: String!): Comment!
   findAllIssue: [Issue!]!
   findOneIssue(id: String!): Issue!
-  attachment(id: String!): Attachment!
-  project(id: String!): StatusResult!
+  findAllAttachment: [Attachment!]!
+  findOneAttachment(id: String!): Attachment!
+  findAllProject: [Project!]!
+  findOneProject(id: String!): StatusResult!
 }
 
 type Mutation {
