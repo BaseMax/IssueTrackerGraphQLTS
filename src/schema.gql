@@ -37,7 +37,7 @@ type StatusResult {
 type Query {
   findOneComment(id: String!): Comment!
   findAllIssue: [Issue!]!
-  issue(id: String!): Issue!
+  findOneIssue(id: String!): Issue!
   attachment(id: String!): Attachment!
 }
 
@@ -46,6 +46,7 @@ type Mutation {
   updateComment(updateCommentInput: UpdateCommentInput!): StatusResult!
   removeComment(id: String!): StatusResult!
   createIssue(createIssueInput: CreateIssueInput!): StatusResult!
+  changeIssueStatus(changeIssueStatusInput: ChangeIssueStatusInput!): StatusResult!
   updateIssue(updateIssueInput: UpdateIssueInput!): StatusResult!
   removeIssue(id: String!): StatusResult!
   addAttachmentToIssue(createAttachmentInput: CreateAttachmentInput!): StatusResult!
@@ -71,6 +72,11 @@ input CreateIssueInput {
   assignee: String!
   labels: [String!]!
   tags: [String!]!
+}
+
+input ChangeIssueStatusInput {
+  issueId: ID!
+  status: String!
 }
 
 input UpdateIssueInput {
