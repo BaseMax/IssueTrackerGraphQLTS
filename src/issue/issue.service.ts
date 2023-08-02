@@ -6,6 +6,8 @@ import { ChangeIssueStatusInput } from './dto/change-issue-status.input';
 import { CreateIssueInput } from './dto/create-issue.input';
 import { UpdateIssueInput } from './dto/update-issue.input';
 import { Issue } from './entities/issue.entity';
+import { Priority } from './enums/priority.enum';
+import { Status } from './enums/status.enum';
 
 type Where = FindOptionsWhere<Issue>
 
@@ -80,6 +82,17 @@ export class IssueService {
   }
 
 
+  async findOpenIssues():Promise<Issue[]>{
+    return await this.issueRepo.findBy({status: Status.OPEN})
+  }
+
+  async findCloseIssues():Promise<Issue[]>{
+    return await this.issueRepo.findBy({status:Status.CLOSE})
+  }
+
+  async findLowPriorityIssues():Promise<Issue[]>{
+    return await this.issueRepo.findBy({priority : Priority.LOW});
+  }
 
   async update(id: string, updateIssueInput: UpdateIssueInput):Promise<StatusResult>{
     let {
@@ -145,11 +158,47 @@ export class IssueService {
      }
   }
 
+  async changeIssuePriority(issueId : string , priority:Priority):Promise<StatusResult>{
+    try {
+      const issue = await this.findOne({id : issueId}) ;
+
+      issue.priority = priority ; 
+
+      await this.issueRepo.save(issue) ;
+    } catch (error) {
+      return {
+        message : error.message , 
+        success : false , 
+      }
+    }
+
+    return {
+      message : 'item edited successfully' , 
+      success : true  , 
+    }
+  }
+
+  async removeCloseIssue():Promise<StatusResult>{
+    await this.issueRepo.delete({status : Status.CLOSE })
+    return {
+      success : true , 
+      message : 'issue close removed successfully'
+    }
+  }
+
   async remove(id: string):Promise<StatusResult>{
     await this.issueRepo.delete({id}) ;
 
     return {
       message : 'item removed successfully' , 
+      success : true , 
+    }
+  }
+
+  async removeAll():Promise<StatusResult>{
+    await this.issueRepo.clear()
+    return {
+      message : 'all item removed successfully' , 
       success : true , 
     }
   }
