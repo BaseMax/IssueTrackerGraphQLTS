@@ -34,11 +34,18 @@ type StatusResult {
   id: String!
 }
 
+type Project {
+  id: ID!
+  title: String!
+  description: String!
+}
+
 type Query {
   findOneComment(id: String!): Comment!
   findAllIssue: [Issue!]!
   findOneIssue(id: String!): Issue!
   attachment(id: String!): Attachment!
+  project(id: String!): StatusResult!
 }
 
 type Mutation {
@@ -52,6 +59,9 @@ type Mutation {
   addAttachmentToIssue(createAttachmentInput: CreateAttachmentInput!): StatusResult!
   updateAttachment(updateAttachmentInput: UpdateAttachmentInput!): StatusResult!
   removeAttachment(id: String!): StatusResult!
+  createProject(createProjectInput: CreateProjectInput!): Project!
+  updateProject(updateProjectInput: UpdateProjectInput!): StatusResult!
+  removeProject(id: String!): StatusResult!
 }
 
 input AddCommentToIssueInput {
@@ -101,4 +111,15 @@ input UpdateAttachmentInput {
   fileUrl: String
   description: String
   id: ID!
+}
+
+input CreateProjectInput {
+  title: String!
+  description: String!
+}
+
+input UpdateProjectInput {
+  title: String
+  description: String
+  id: String!
 }
