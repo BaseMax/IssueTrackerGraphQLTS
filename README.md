@@ -1,10 +1,8 @@
 # Issue Tracker - GraphQL API TS
 
-The Issue Tracker GraphQL API is a powerful system for managing software development projects and tracking issues. It allows users to create, update, and manage issues efficiently. This README.md provides an overview of the features, queries, and mutations available in the API.
-
+The Issue Tracker GraphQL API is a powerful system for managing software development projects and tracking issues. It allows users to create, update, and manage issues efficiently.
 
 ## Demo 
-
 
 ![Demo image](./screenshots/1.png)
 
@@ -23,9 +21,6 @@ The Issue Tracker GraphQL API is a powerful system for managing software develop
 ![Demo image](./screenshots/8.png)
 
 ![Demo image](./screenshots/9.png)
-
-
-
 
 ## Features
 
@@ -244,7 +239,6 @@ Try the following command :
 
 ```
 npm install 
-
 ```
 
 ## Create Database 
@@ -255,11 +249,9 @@ Postgres is used by default
 
 After creating the database, put all its information in the env file .
 
-
 ```
 mv ./.env.example ./.env
 ```
-
 
 ## Run app 
 
