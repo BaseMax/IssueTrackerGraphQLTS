@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { StatusResult } from 'src/shared/status-result/status-result';
 import { FindOptionsWhere, Repository } from 'typeorm';
+import { ChangeIssueStatusInput } from './dto/change-issue-status.input';
 import { CreateIssueInput } from './dto/create-issue.input';
 import { UpdateIssueInput } from './dto/update-issue.input';
 import { Issue } from './entities/issue.entity';
@@ -78,6 +79,8 @@ export class IssueService {
     return issue ; 
   }
 
+
+
   async update(id: string, updateIssueInput: UpdateIssueInput):Promise<StatusResult>{
     let {
       title , 
@@ -113,6 +116,33 @@ export class IssueService {
       message : 'item edited successfully' , 
       success : true 
     }
+  }
+
+  async changeStatus(changeIssueStatusInput:ChangeIssueStatusInput):Promise<StatusResult>{
+     let {
+      issueId , 
+      status , 
+     } = changeIssueStatusInput ;  
+
+
+     try {
+      const issue = await this.findOne({id : issueId}) ;
+      
+      // chnage status 
+      issue.status = status ; 
+
+      await this.issueRepo.save(issue)
+     } catch (error) {
+      return {
+        message : error.message , 
+        success : false , 
+      }
+     }
+
+     return {
+      message : 'item edited successfully' , 
+      success : true , 
+     }
   }
 
   async remove(id: string):Promise<StatusResult>{

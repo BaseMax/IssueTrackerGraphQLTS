@@ -4,6 +4,7 @@ import { Issue } from './entities/issue.entity';
 import { CreateIssueInput } from './dto/create-issue.input';
 import { UpdateIssueInput } from './dto/update-issue.input';
 import { StatusResult } from 'src/common/entities/status-result';
+import { ChangeIssueStatusInput } from './dto/change-issue-status.input';
 
 @Resolver(() => Issue)
 export class IssueResolver {
@@ -19,9 +20,14 @@ export class IssueResolver {
     return this.issueService.findAll();
   }
 
-  @Query(() => Issue, { name: 'issue' })
+  @Query(() => Issue, { name: 'findOneIssue' })
   findOne(@Args('id', { type: () => String}) id: string) {
     return this.issueService.findOne({id});
+  }
+
+  @Mutation(() => StatusResult)
+  changeIssueStatus(@Args('changeIssueStatusInput') changeIssueStatusInput: ChangeIssueStatusInput) {
+    return this.issueService.changeStatus(changeIssueStatusInput) ;
   }
 
   @Mutation(() => StatusResult)
