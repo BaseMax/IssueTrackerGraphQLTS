@@ -18,6 +18,64 @@ export class IssueService {
     @InjectRepository(Issue)
     private readonly issueRepo:Repository<Issue>
   ){}
+
+  async findAll():Promise<Issue[]>{
+    return await this.issueRepo.find({
+      relations : {
+        comments : true ,
+        attachments : true , 
+      }
+    })
+  }
+
+  async findAllWhare(where : Where):Promise<Issue[]>{
+    return await this.issueRepo.find({
+      where , 
+      relations : {
+        comments : true , 
+        attachments : true , 
+      }
+    })
+  }
+
+  async findOne(where:Where):Promise<Issue>{
+    const issue = await this.issueRepo.findOne({
+      where , 
+      relations:{
+        comments : true , 
+        attachments : true , 
+      }
+    }) ;
+
+    if(!issue){
+      throw new NotFoundException('issue not found')
+    }
+
+    return issue ; 
+  }
+
+
+  async findOpenIssues():Promise<Issue[]>{
+    return await this.findAllWhare({status : Status.OPEN})
+  }
+
+  async findCloseIssues():Promise<Issue[]>{
+    return await this.findAllWhare({status : Status.CLOSE})
+  }
+
+  async findLowPriorityIssues():Promise<Issue[]>{
+    return await this.findAllWhare({priority : Priority.LOW})
+  }
+
+  async findHighPriorityIssues():Promise<Issue[]>{
+    return await this.findAllWhare({priority : Priority.HIGH});
+  }
+
+  async findMediumPriorityIssues():Promise<Issue[]>{
+    return await this.findAllWhare({priority : Priority.MEDIUM});
+  }
+
+
   async create(createIssueInput:CreateIssueInput):Promise<StatusResult>{
     let { 
       title,
@@ -56,43 +114,6 @@ export class IssueService {
     }
   }
 
-  async findAll():Promise<Issue[]>{
-    return await this.issueRepo.find({
-      relations : {
-        comments : true ,
-        attachments : true , 
-      }
-    })
-  }
-
-  async findOne(where:Where):Promise<Issue>{
-    const issue = await this.issueRepo.findOne({
-      where , 
-      relations:{
-        comments : true , 
-        attachments : true , 
-      }
-    }) ;
-
-    if(!issue){
-      throw new NotFoundException('issue not found')
-    }
-
-    return issue ; 
-  }
-
-
-  async findOpenIssues():Promise<Issue[]>{
-    return await this.issueRepo.findBy({status: Status.OPEN})
-  }
-
-  async findCloseIssues():Promise<Issue[]>{
-    return await this.issueRepo.findBy({status:Status.CLOSE})
-  }
-
-  async findLowPriorityIssues():Promise<Issue[]>{
-    return await this.issueRepo.findBy({priority : Priority.LOW});
-  }
 
   async update(id: string, updateIssueInput: UpdateIssueInput):Promise<StatusResult>{
     let {
@@ -131,7 +152,7 @@ export class IssueService {
     }
   }
 
-  async changeStatus(changeIssueStatusInput:ChangeIssueStatusInput):Promise<StatusResult>{
+  async changeIssueStatus(changeIssueStatusInput:ChangeIssueStatusInput):Promise<StatusResult>{
      let {
       issueId , 
       status , 
@@ -182,7 +203,7 @@ export class IssueService {
     await this.issueRepo.delete({status : Status.CLOSE })
     return {
       success : true , 
-      message : 'issue close removed successfully'
+      message : 'issue close removed'
     }
   }
 
