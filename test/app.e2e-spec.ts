@@ -7,11 +7,14 @@ import { Status } from 'src/issue/enums/status.enum';
 import { Repository } from 'typeorm';
 import { Issue } from 'src/issue/entities/issue.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { Comment } from 'src/comment/entities/comment.entity';
 
 describe('app resolvers (e2e)', () => {
   let app: INestApplication;
   let issueRepo:Repository<Issue>; 
+  let commentRepo:Repository<Comment>
   let parentIssue:Issue ; 
+  let parentComment:Comment ; 
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -22,6 +25,8 @@ describe('app resolvers (e2e)', () => {
 
     app = moduleFixture.createNestApplication();
     issueRepo = moduleFixture.get(getRepositoryToken(Issue));
+    commentRepo = moduleFixture.get(getRepositoryToken(Comment));
+
 
 
     const issue = await issueRepo.create({
@@ -32,9 +37,15 @@ describe('app resolvers (e2e)', () => {
       priority : Priority.HIGH , 
       labels : [] ,
       tags : []
+    }) 
+
+
+    const comment = await commentRepo.create({
+      content : 'test'
     })
 
     parentIssue = await issueRepo.save(issue) ;
+    parentComment = await commentRepo.save(comment) ;
     await app.init();
   });
 
@@ -93,18 +104,16 @@ describe('app resolvers (e2e)', () => {
       }
 
       return request(app.getHttpServer())
-        .post('/graphql')
-        .send({
-          query: mutation , 
-          variables 
-        })
-        .expect(200)
-        .expect(({ body }) => {
-          const comment = body.data.createIssue;
-          expect(comment.success).toBe(true);
-        });
+      .post('/graphql')
+      .send({
+        query: mutation , 
+        variables 
+      })
+      .expect(200)
+      .expect(({ body }) => {
+        const comment = body.data.createIssue;
+        expect(comment.success).toBe(true);
       });
-
     })
 
 
@@ -171,4 +180,66 @@ describe('app resolvers (e2e)', () => {
         expect(result.success).toBe(true);
       });
     })
+  })
+
+  describe('comment' , ()=>{
+
+    it('add comment to issue' , async ()=>{
+      const mutation = `
+      mutation addCommentToIssue ($addCommentToIssueInput: AddCommentToIssueInput!) {
+          addCommentToIssue (addCommentToIssueInput: $addCommentToIssueInput) {
+              message
+              success
+              id
+          }
+      }
+      `
+
+      const variables = {
+        addCommentToIssueInput: {
+          issueId: parentIssue.id ,
+          content: " test comment"
+        }
+      }
+
+      return request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        query : mutation , 
+        variables , 
+      })
+      .expect(200)
+      .expect(({ body }) => {
+        const result = body.data.addCommentToIssue;
+        expect(result.success).toBe(true);
+      });
+    })
+
+    it('find all commments' , async ()=>{
+
+      const query = `
+        query findOneComment ($id: String!) {
+          findOneComment (id: $id) {
+              id
+              content
+          }
+      }
+      `
+
+      const variables = {
+        id: parentComment.id , 
+      }
+      return request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        query , 
+        variables , 
+      })
+      .expect(200) 
+      .expect(({ body }) => {
+        const result = body.data.findOneComment;
+        expect(result.success).toBe(true);
+      });
+    })
+  })
 })
