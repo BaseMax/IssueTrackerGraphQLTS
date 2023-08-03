@@ -5,6 +5,7 @@ import { CreateIssueInput } from './dto/create-issue.input';
 import { UpdateIssueInput } from './dto/update-issue.input';
 import { StatusResult } from 'src/common/entities/status-result';
 import { ChangeIssueStatusInput } from './dto/change-issue-status.input';
+import { Priority } from './enums/priority.enum';
 
 @Resolver(() => Issue)
 export class IssueResolver {
@@ -24,19 +25,65 @@ export class IssueResolver {
   findOne(@Args('id', { type: () => String}) id: string) {
     return this.issueService.findOne({id});
   }
+  
+  @Query(() => [Issue], { name: 'findCloseIssues' })
+  findCloseIssues() {
+    return this.issueService.findCloseIssues();
+  }
+
+  @Query(() => [Issue], { name: 'findOpenIssues' })
+  findOpenIssues() {
+    return this.issueService.findOpenIssues();
+  }
+
+  @Query(() => [Issue], { name: 'findLowPriorityIssues' })
+  findLowPriorityIssues() {
+    return this.issueService.findLowPriorityIssues();
+  }
+
+
+  @Query(() => [Issue], { name: 'findHighPriorityIssues' })
+  findHighPriorityIssues() {
+    return this.issueService.findHighPriorityIssues();
+  }
+
+
+  @Query(() => [Issue], { name: 'findMediumPriorityIssues' })
+  findMediumPriorityIssues() {
+    return this.issueService.findMediumPriorityIssues();
+  }
+
 
   @Mutation(() => StatusResult , {name : "changeIssueStatus"})
   changeIssueStatus(@Args('changeIssueStatusInput') changeIssueStatusInput: ChangeIssueStatusInput) {
-    return this.issueService.changeStatus(changeIssueStatusInput) ;
+    return this.issueService.changeIssueStatus(changeIssueStatusInput) ;
   }
+
+
+  @Mutation(() => StatusResult , {name : "changeIssuePriority"})
+  changeIssuePriority(@Args('id') id :string , @Args('priority') priority:Priority) {
+    return this.issueService.changeIssuePriority(id , priority) ;
+  }
+
 
   @Mutation(() => StatusResult , {name : 'updateIssue'})
   updateIssue(@Args('updateIssueInput') updateIssueInput: UpdateIssueInput) {
     return this.issueService.update(updateIssueInput.id, updateIssueInput);
   }
 
+  @Mutation(() => StatusResult , {name: 'removeCloseIssue'})
+  removeCloseIssue() {
+    return this.issueService.removeCloseIssue();
+  }
+
   @Mutation(() => StatusResult , {name: 'removeIssue'})
   removeIssue(@Args('id', { type: () => String  , name : 'removeIssue'}) id: string) {
     return this.issueService.remove(id);
   }
+
+  @Mutation(() => StatusResult , {name: 'removeAllIssue'})
+  removeAllIssue() {
+    return this.issueService.removeAll();
+  }
+
 }
