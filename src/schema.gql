@@ -40,40 +40,49 @@ type Project {
   description: String!
 }
 
+type Component {
+  id: ID!
+  title: String!
+  description: String!
+}
+
 type Query {
-  findOneComment(id: String!): Comment!
   findAllIssue: [Issue!]!
   findOneIssue(id: String!): Issue!
+  findCloseIssues: [Issue!]!
+  findOpenIssues: [Issue!]!
+  findLowPriorityIssues: [Issue!]!
+  findHighPriorityIssues: [Issue!]!
+  findMediumPriorityIssues: [Issue!]!
+  findOneComment(id: String!): Comment!
   findAllAttachment: [Attachment!]!
   findOneAttachment(id: String!): Attachment!
   findAllProject: [Project!]!
   findOneProject(id: String!): StatusResult!
+  component: [Component!]!
+  findOneComponent(id: ID!): Component!
 }
 
 type Mutation {
+  createIssue(createIssueInput: CreateIssueInput!): StatusResult!
+  changeIssueStatus(changeIssueStatusInput: ChangeIssueStatusInput!): StatusResult!
+  changeIssuePriority(id: String!, priority: String!): StatusResult!
+  updateIssue(updateIssueInput: UpdateIssueInput!): StatusResult!
+  removeCloseIssue: StatusResult!
+  removeIssue(id: String!): StatusResult!
+  removeAllIssue: StatusResult!
   addCommentToIssue(addCommentToIssueInput: AddCommentToIssueInput!): StatusResult!
   updateComment(updateCommentInput: UpdateCommentInput!): StatusResult!
   removeComment(id: String!): StatusResult!
-  createIssue(createIssueInput: CreateIssueInput!): StatusResult!
-  changeIssueStatus(changeIssueStatusInput: ChangeIssueStatusInput!): StatusResult!
-  updateIssue(updateIssueInput: UpdateIssueInput!): StatusResult!
-  removeIssue(id: String!): StatusResult!
   addAttachmentToIssue(createAttachmentInput: CreateAttachmentInput!): StatusResult!
   updateAttachment(updateAttachmentInput: UpdateAttachmentInput!): StatusResult!
   removeAttachment(id: String!): StatusResult!
   createProject(createProjectInput: CreateProjectInput!): Project!
   updateProject(updateProjectInput: UpdateProjectInput!): StatusResult!
   removeProject(id: String!): StatusResult!
-}
-
-input AddCommentToIssueInput {
-  issueId: String!
-  content: String!
-}
-
-input UpdateCommentInput {
-  content: String
-  id: String!
+  createComponent(createComponentInput: CreateComponentInput!): StatusResult!
+  updateComponent(updateComponentInput: UpdateComponentInput!): StatusResult!
+  removeComponent(id: ID!): StatusResult!
 }
 
 input CreateIssueInput {
@@ -102,6 +111,16 @@ input UpdateIssueInput {
   id: String!
 }
 
+input AddCommentToIssueInput {
+  issueId: String!
+  content: String!
+}
+
+input UpdateCommentInput {
+  content: String
+  id: String!
+}
+
 input CreateAttachmentInput {
   issueId: String!
   fileUrl: String!
@@ -124,4 +143,15 @@ input UpdateProjectInput {
   title: String
   description: String
   id: String!
+}
+
+input CreateComponentInput {
+  title: String!
+  description: String!
+}
+
+input UpdateComponentInput {
+  title: String
+  description: String
+  id: ID!
 }
