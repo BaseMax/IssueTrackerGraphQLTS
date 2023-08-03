@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "bcfeeeb7-f61e-4b05-9e19-8c94ccafb6b1",
-		"name": "Postman Collection (from GraphQL)",
+		"_postman_id": "ffc57cf0-4654-4dff-bcb6-0e1302febb55",
+		"name": "Postman Collection (from GraphQL) Copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "16572967"
 	},
@@ -9,6 +9,153 @@
 		{
 			"name": "mutations",
 			"item": [
+				{
+					"name": "createIssue",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation createIssue ($createIssueInput: CreateIssueInput!) {\n    createIssue (createIssueInput: $createIssueInput) {\n        message\n        success\n        id\n    }\n}",
+								"variables": "{\n  \"createIssueInput\": {\n    \"title\": \"\",\n    \"description\": \"\",\n    \"priority\": \"\",\n    \"status\": \"\",\n    \"assignee\": \"\",\n    \"labels\": [\n      \"\"\n    ],\n    \"tags\": [\n      \"\"\n    ]\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "changeIssueStatus",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation changeIssueStatus ($changeIssueStatusInput: ChangeIssueStatusInput!) {\n    changeIssueStatus (changeIssueStatusInput: $changeIssueStatusInput) {\n        message\n        success\n        id\n    }\n}",
+								"variables": "{\n  \"changeIssueStatusInput\": {\n    \"issueId\": 0,\n    \"status\": \"\"\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "changeIssuePriority",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation changeIssuePriority ($id: String!, $priority: String!) {\n    changeIssuePriority (id: $id, priority: $priority) {\n        message\n        success\n        id\n    }\n}",
+								"variables": "{\n  \"id\": \"\",\n  \"priority\": \"\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateIssue",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation updateIssue ($updateIssueInput: UpdateIssueInput!) {\n    updateIssue (updateIssueInput: $updateIssueInput) {\n        message\n        success\n        id\n    }\n}",
+								"variables": "{\n  \"updateIssueInput\": {\n    \"title\": \"\",\n    \"description\": \"\",\n    \"priority\": \"\",\n    \"status\": \"\",\n    \"assignee\": \"\",\n    \"labels\": [\n      \"\"\n    ],\n    \"tags\": [\n      \"\"\n    ],\n    \"id\": \"\"\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "removeCloseIssue",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation removeCloseIssue {\n    removeCloseIssue {\n        message\n        success\n        id\n    }\n}",
+								"variables": "{}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "removeIssue",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation removeIssue ($id: String!) {\n    removeIssue (id: $id) {\n        message\n        success\n        id\n    }\n}",
+								"variables": "{\n  \"id\": \"\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "removeAllIssue",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation removeAllIssue {\n    removeAllIssue {\n        message\n        success\n        id\n    }\n}",
+								"variables": "{}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "addCommentToIssue",
 					"request": {
@@ -60,90 +207,6 @@
 							"mode": "graphql",
 							"graphql": {
 								"query": "mutation removeComment ($id: String!) {\n    removeComment (id: $id) {\n        message\n        success\n        id\n    }\n}",
-								"variables": "{\n  \"id\": \"\"\n}"
-							}
-						},
-						"url": {
-							"raw": "{{url}}",
-							"host": [
-								"{{url}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "createIssue",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "mutation createIssue ($createIssueInput: CreateIssueInput!) {\n    createIssue (createIssueInput: $createIssueInput) {\n        message\n        success\n        id\n    }\n}",
-								"variables": "{\n  \"createIssueInput\": {\n    \"title\": \"\",\n    \"description\": \"\",\n    \"priority\": \"\",\n    \"status\": \"\",\n    \"assignee\": \"\",\n    \"labels\": [\n      \"\"\n    ],\n    \"tags\": [\n      \"\"\n    ]\n  }\n}"
-							}
-						},
-						"url": {
-							"raw": "{{url}}",
-							"host": [
-								"{{url}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "changeIssueStatus",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "mutation changeIssueStatus ($changeIssueStatusInput: ChangeIssueStatusInput!) {\n    changeIssueStatus (changeIssueStatusInput: $changeIssueStatusInput) {\n        message\n        success\n        id\n    }\n}",
-								"variables": "{\n  \"changeIssueStatusInput\": {\n    \"issueId\": 0,\n    \"status\": \"\"\n  }\n}"
-							}
-						},
-						"url": {
-							"raw": "{{url}}",
-							"host": [
-								"{{url}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "updateIssue",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "mutation updateIssue ($updateIssueInput: UpdateIssueInput!) {\n    updateIssue (updateIssueInput: $updateIssueInput) {\n        message\n        success\n        id\n    }\n}",
-								"variables": "{\n  \"updateIssueInput\": {\n    \"title\": \"\",\n    \"description\": \"\",\n    \"priority\": \"\",\n    \"status\": \"\",\n    \"assignee\": \"\",\n    \"labels\": [\n      \"\"\n    ],\n    \"tags\": [\n      \"\"\n    ],\n    \"id\": \"\"\n  }\n}"
-							}
-						},
-						"url": {
-							"raw": "{{url}}",
-							"host": [
-								"{{url}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "removeIssue",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "mutation removeIssue ($id: String!) {\n    removeIssue (id: $id) {\n        message\n        success\n        id\n    }\n}",
 								"variables": "{\n  \"id\": \"\"\n}"
 							}
 						},
@@ -288,27 +351,6 @@
 			"name": "queries",
 			"item": [
 				{
-					"name": "findOneComment",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "query findOneComment ($id: String!) {\n    findOneComment (id: $id) {\n        id\n        content\n    }\n}",
-								"variables": "{\n  \"id\": \"\"\n}"
-							}
-						},
-						"url": {
-							"raw": "{{url}}",
-							"host": [
-								"{{url}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "findAllIssue",
 					"request": {
 						"method": "POST",
@@ -351,14 +393,77 @@
 					"response": []
 				},
 				{
-					"name": "attachment",
+					"name": "findCloseIssues",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query attachment ($id: String!) {\n    attachment (id: $id) {\n        id\n        fileUrl\n        description\n    }\n}",
+								"query": "query findCloseIssues {\n    findCloseIssues {\n        id\n        title\n        description\n        priority\n        status\n        assignee\n        labels\n        tags\n    }\n}",
+								"variables": "{}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findOpenIssues",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query findOpenIssues {\n    findOpenIssues {\n        id\n        title\n        description\n        priority\n        status\n        assignee\n        labels\n        tags\n    }\n}",
+								"variables": "{}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findLowPriorityIssues",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query findLowPriorityIssues {\n    findLowPriorityIssues {\n        id\n        title\n        description\n        priority\n        status\n        assignee\n        labels\n        tags\n    }\n}",
+								"variables": "{}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findOneComment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query findOneComment ($id: String!) {\n    findOneComment (id: $id) {\n        id\n        content\n    }\n}",
 								"variables": "{\n  \"id\": \"\"\n}"
 							}
 						},
@@ -372,14 +477,77 @@
 					"response": []
 				},
 				{
-					"name": "project",
+					"name": "findAllAttachment",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query project ($id: String!) {\n    project (id: $id) {\n        message\n        success\n        id\n    }\n}",
+								"query": "query findAllAttachment {\n    findAllAttachment {\n        id\n        fileUrl\n        description\n    }\n}",
+								"variables": "{}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findOneAttachment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query findOneAttachment ($id: String!) {\n    findOneAttachment (id: $id) {\n        id\n        fileUrl\n        description\n    }\n}",
+								"variables": "{\n  \"id\": \"\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAllProject",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query findAllProject {\n    findAllProject {\n        id\n        title\n        description\n    }\n}",
+								"variables": "{}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findOneProject",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query findOneProject ($id: String!) {\n    findOneProject (id: $id) {\n        message\n        success\n        id\n    }\n}",
 								"variables": "{\n  \"id\": \"\"\n}"
 							}
 						},
@@ -399,8 +567,7 @@
 		{
 			"key": "url",
 			"value": "",
-			"type": "any",
-			"description": "URL for the request."
+			"type": "any"
 		}
 	]
 }
