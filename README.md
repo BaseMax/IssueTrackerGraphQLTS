@@ -95,6 +95,18 @@ The Issue Tracker GraphQL API is a powerful system for managing software develop
 - `createComponent(projectId: ID!, title: String!, description: String): Component`: Create a new component within a project.
 - `updateComponent(componentId: ID!, title: String, description: String): Component`: Update the title or description of a component.
 
+**Note** 
+The responses of creating, updating and deleting are answered with StatusResult
+
+‍‍‍‍‍‍‍‍‍‍```
+export interface StatusResult { 
+    message : string ; 
+    success : boolean ; 
+    id? : string; 
+}
+
+```
+
 ## GraphQL Models
 
 ```graphql
