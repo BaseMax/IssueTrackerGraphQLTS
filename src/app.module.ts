@@ -9,6 +9,8 @@ import { IssueModule } from './issue/issue.module';
 import { CommentModule } from './comment/comment.module';
 import { AttachmentModule } from './attachment/attachment.module';
 import { ProjectModule } from './project/project.module';
+import { ComponentModule } from './component/component.module';
+
 
 
 @Module({
@@ -22,9 +24,11 @@ import { ProjectModule } from './project/project.module';
       playground : false , 
       plugins : [ApolloServerPluginLandingPageGraphQLPlayground()]
     }),
+    IssueModule ,
     CommentModule,
     AttachmentModule,
-    ProjectModule 
+    ProjectModule,
+    ComponentModule, 
   ],
 })
 export class AppModule {}
