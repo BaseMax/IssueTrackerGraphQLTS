@@ -53,6 +53,20 @@ export class IssueResolver {
     return this.issueService.findMediumPriorityIssues();
   }
 
+  @Query(() => [Issue], { name: 'findIssuesByComponent' })
+  findIssuesByComponent(@Args('componentId') componentId : string) {
+    return this.issueService.findIssuesByComponent(componentId);
+  }
+
+  @Query(() => [Issue], { name: 'findIssuesByProject' })
+  findIssuesByProject(@Args('projectId') projectId : string) {
+    return this.issueService.findIssuesByProject(projectId);
+  }
+
+  @Query(() => [Issue], { name: 'findIssuesByAssignee' })
+  findIssuesByAssignee(@Args('assigne') assigne : string) {
+    return this.issueService.findIssuesByAssignee(assigne);
+  }
 
   @Mutation(() => StatusResult , {name : "changeIssueStatus"})
   changeIssueStatus(@Args('changeIssueStatusInput') changeIssueStatusInput: ChangeIssueStatusInput) {
@@ -69,6 +83,16 @@ export class IssueResolver {
   @Mutation(() => StatusResult , {name : 'updateIssue'})
   updateIssue(@Args('updateIssueInput') updateIssueInput: UpdateIssueInput) {
     return this.issueService.update(updateIssueInput.id, updateIssueInput);
+  }
+
+  @Mutation(() => StatusResult , {name : 'assignIssue'})
+  assignIssue(@Args('issueId') issueId : string , @Args('assigne') assigne : string ) {
+    return this.issueService.assignIssue(issueId , assigne);
+  }
+
+  @Mutation(() => StatusResult , {name: 'removeTagFromIssue'})
+  removeTagFromIssue(@Args('issueId') issueId : string , @Args('issueId') tag : string) {
+    return this.issueService.removeTagFromIssue(issueId , tag);
   }
 
   @Mutation(() => StatusResult , {name: 'removeCloseIssue'})
