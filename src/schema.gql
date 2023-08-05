@@ -15,6 +15,20 @@ type Comment {
   issue: Issue!
 }
 
+type Component {
+  id: ID!
+  title: String!
+  description: String!
+  issue: Issue!
+}
+
+type Project {
+  id: ID!
+  title: String!
+  description: String!
+  issue: Issue!
+}
+
 type Issue {
   id: ID!
   title: String!
@@ -26,24 +40,14 @@ type Issue {
   tags: [String!]!
   comments: [Comment!]!
   attachments: [Attachment!]!
+  components: [Component!]!
+  projects: [Project!]!
 }
 
 type StatusResult {
   message: String!
   success: Boolean!
   id: String!
-}
-
-type Project {
-  id: ID!
-  title: String!
-  description: String!
-}
-
-type Component {
-  id: ID!
-  title: String!
-  description: String!
 }
 
 type Query {
@@ -54,12 +58,15 @@ type Query {
   findLowPriorityIssues: [Issue!]!
   findHighPriorityIssues: [Issue!]!
   findMediumPriorityIssues: [Issue!]!
+  findIssuesByComponent(componentId: String!): [Issue!]!
+  findIssuesByProject(projectId: String!): [Issue!]!
+  findIssuesByAssignee(assigne: String!): [Issue!]!
   findOneComment(id: String!): Comment!
   findAllAttachment: [Attachment!]!
   findOneAttachment(id: String!): Attachment!
   findAllProject: [Project!]!
   findOneProject(id: String!): StatusResult!
-  component: [Component!]!
+  findAllComponent: [Component!]!
   findOneComponent(id: ID!): Component!
 }
 
@@ -68,6 +75,8 @@ type Mutation {
   changeIssueStatus(changeIssueStatusInput: ChangeIssueStatusInput!): StatusResult!
   changeIssuePriority(id: String!, priority: String!): StatusResult!
   updateIssue(updateIssueInput: UpdateIssueInput!): StatusResult!
+  assignIssue(issueId: String!, assigne: String!): StatusResult!
+  removeTagFromIssue(issueId: String!): StatusResult!
   removeCloseIssue: StatusResult!
   removeIssue(id: String!): StatusResult!
   removeAllIssue: StatusResult!
