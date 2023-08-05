@@ -236,7 +236,7 @@ mv ./.env.example ./.env
 
 ## Run app 
 
-great ! 
+Great!
 
 Now run the app with the following command
 
@@ -244,24 +244,21 @@ Now run the app with the following command
 npm run start:dev
 ```
 
-
 ## Test app 
 
-if your test app following steps :‌
+if your test app following steps:
 
-1- get the .env file and use this : 
+1- Get the .env file and use this:
 
 ```
 POSTGRES_DATABASE_TEST="your-database"
 ```
 
-2- run command :
+2- Run command :
 
 ```
 npm run test:e2e
 ```
-
-
 
 ## Contributing
 
