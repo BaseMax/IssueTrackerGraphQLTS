@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Component } from 'src/component/entities/component.entity';
 import { StatusResult } from 'src/shared/status-result/status-result';
 import { FindOptionsWhere, Repository } from 'typeorm';
 import { ChangeIssueStatusInput } from './dto/change-issue-status.input';
@@ -75,6 +76,29 @@ export class IssueService {
     return await this.findAllWhare({priority : Priority.MEDIUM});
   }
 
+  async findIssuesByPriority(priority:Priority):Promise<Issue>{
+    return await this.findOne({priority});
+  }
+
+  async findIssuesByAssignee(assignee:string):Promise<Issue>{
+    return await this.findOne({assignee});
+  }
+
+  async findIssuesByComponent(componentId:string):Promise<Issue[]>{
+    return await this.findAllWhare({
+      components : {
+        id : componentId ,
+      }
+    })
+  }
+
+  async findIssuesByProject(projectId:string):Promise<Issue[]>{
+    return await this.findAllWhare({
+      projects : {
+        id : projectId ,
+      }
+    })
+  }
 
   async create(createIssueInput:CreateIssueInput):Promise<StatusResult>{
     let { 
@@ -114,7 +138,6 @@ export class IssueService {
     }
   }
 
-
   async update(id: string, updateIssueInput: UpdateIssueInput):Promise<StatusResult>{
     let {
       title , 
@@ -152,7 +175,26 @@ export class IssueService {
     }
   }
 
-  async (){}
+
+  async assignIssue(issueId:string , assignee:string):Promise<StatusResult>{
+    try {
+      const issue = await this.findOne({id:issueId});
+
+      issue.assignee = assignee ;
+
+      await this.issueRepo.save(issue);
+    } catch (error) {
+      return {
+        message : error.message , 
+        success : false ,
+      }
+    }
+
+    return {
+      message : 'item edited successfully' , 
+      success : true 
+    }
+  }
 
   async changeIssueStatus(changeIssueStatusInput:ChangeIssueStatusInput):Promise<StatusResult>{
      let {
@@ -198,6 +240,26 @@ export class IssueService {
     return {
       message : 'item edited successfully' , 
       success : true  , 
+    }
+  }
+
+  async removeTagFromIssue(issueId:string , tag:string):Promise<StatusResult>{
+    try {
+      let issue = await this.findOne({id:issueId});
+
+      issue.tags.filter(item=> item !== tag) ;
+
+      await this.issueRepo.save(issue) ;
+    } catch (error) {
+      return {
+        success : false , 
+        message : error.message , 
+      }
+    }
+
+    return {
+      message : 'item removed successfully' , 
+      success : false , 
     }
   }
 
