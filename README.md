@@ -36,24 +36,24 @@ The Issue Tracker GraphQL API is a powerful system for managing software develop
 
 ### Queries:
 
-- `getAllIssues`: Get a list of all issues in the system.
-- `getIssueById(issueId: ID!)`: Retrieve a specific issue by providing its unique ID.
+- `findAllIssues`: Get a list of all issues in the system.
+- `findIssueById(issueId: ID!)`: Retrieve a specific issue by providing its unique ID.
 - `searchIssues(keywords: String!, status: String, priority: String, assignee: String)`: Search for issues based on provided search parameters.
-- `getOpenIssues: [Issue]`: Get a list of all open issues in the system.
-- `getClosedIssues: [Issue]`: Get a list of all closed issues.
-- `getHighPriorityIssues: [Issue]`: Get a list of issues with high priority.
-- `getMediumPriorityIssues: [Issue]`: Get a list of issues with medium priority.
-- `getLowPriorityIssues: [Issue]`: Get a list of issues with low priority.
-- `getIssuesCreatedAfter(date: String!): [Issue]`: Get a list of issues created after a specified date.
-- `getIssuesCreatedBefore(date: String!): [Issue]`: Get a list of issues created before a specified date.
-- `getIssuesByAuthor(authorId: ID!): [Issue]`: Get a list of issues created by a specific author.
-- `getIssuesByLabel(label: String!): [Issue]`: Get a list of issues with a specific label.
-- `getIssuesByMilestone(milestone: String!): [Issue]`: Get a list of issues associated with a particular milestone.
-- `getIssuesByTag(tag: String!): [Issue]`: Get a list of issues associated with a specific tag.
-- `getAssignedIssues(assigneeId: ID!): [Issue]`: Get a list of issues assigned to a specific team member.
-- `getUnassignedIssues: [Issue]`: Get a list of issues that are not assigned to anyone.
-- `getIssuesByProject(projectId: ID!): [Issue]`: Get a list of issues associated with a specific project.
-- `getIssuesByComponent(component: String!): [Issue]`: Get a list of issues related to a particular component of the project.
+- `findOpenIssues: [Issue]`: Get a list of all open issues in the system.
+- `findClosedIssues: [Issue]`: Get a list of all closed issues.
+- `findHighPriorityIssues: [Issue]`: Get a list of issues with high priority.
+- `findMediumPriorityIssues: [Issue]`: Get a list of issues with medium priority.
+- `findLowPriorityIssues: [Issue]`: Get a list of issues with low priority.
+- `findIssuesCreatedAfter(date: String!): [Issue]`: Get a list of issues created after a specified date.
+- `findIssuesCreatedBefore(date: String!): [Issue]`: Get a list of issues created before a specified date.
+- `findIssuesByAuthor(authorId: ID!): [Issue]`: Get a list of issues created by a specific author.
+- `findIssuesByLabel(label: String!): [Issue]`: Get a list of issues with a specific label.
+- `findIssuesByMilestone(milestone: String!): [Issue]`: Get a list of issues associated with a particular milestone.
+- `findIssuesByTag(tag: String!): [Issue]`: Get a list of issues associated with a specific tag.
+- `findAssignedIssues(assigneeId: ID!): [Issue]`: Get a list of issues assigned to a specific team member.
+- `findUnassignedIssues: [Issue]`: Get a list of issues that are not assigned to anyone.
+- `findIssuesByProject(projectId: ID!): [Issue]`: Get a list of issues associated with a specific project.
+- `findIssuesByComponent(component: String!): [Issue]`: Get a list of issues related to a particular component of the project.
 - `getIssuesByEpic(epicId: ID!): [Issue]`: Get a list of issues associated with a specific epic.
 - `getIssuesByRelatedIssue(issueId: ID!): [Issue]`: Get a list of issues related to a specific issue.
 - `getIssuesWithAttachments: [Issue]`: Get a list of issues with attached files or images.
@@ -80,7 +80,7 @@ The Issue Tracker GraphQL API is a powerful system for managing software develop
 - `removeTagFromIssue(issueId: ID!, tag: String!): Issue`: Remove a tag from a specific issue.
 - `addCommentToIssue(issueId: ID!, content: String!): Comment`: Add a comment to a specific issue.
 - `updateComment(commentId: ID!, content: String!): Comment`: Update the content of a comment.
-- `deleteComment(commentId: ID!): ID`: Delete a comment from the system.
+- `removeComment(commentId: ID!): ID`: Delete a comment from the system.
 - `addWatcherToIssue(issueId: ID!, watcherId: ID!): Issue`: Add a user as a watcher to a specific issue.
 - `removeWatcherFromIssue(issueId: ID!, watcherId: ID!): Issue`: Remove a user from the watchers of a specific issue.
 - `addAttachmentToIssue(issueId: ID!, fileUrl: String!, description: String): Issue`: Add an attachment (e.g., file, image) to a specific issue.
@@ -152,64 +152,47 @@ type Component {
 }
 
 type Query {
-  getAllIssues: [Issue!]!
-  getIssueById(issueId: ID!): Issue
-  searchIssues(keywords: String!, status: String, priority: String, assignee: String): [Issue!]!
-  getOpenIssues: [Issue!]!
-  getClosedIssues: [Issue!]!
-  getHighPriorityIssues: [Issue!]!
-  getMediumPriorityIssues: [Issue!]!
-  getLowPriorityIssues: [Issue!]!
-  getIssuesCreatedAfter(date: String!): [Issue!]!
-  getIssuesCreatedBefore(date: String!): [Issue!]!
-  getIssuesByAuthor(authorId: ID!): [Issue!]!
-  getIssuesByLabel(label: String!): [Issue!]!
-  getIssuesByMilestone(milestone: String!): [Issue!]!
-  getIssuesByTag(tag: String!): [Issue!]!
-  getAssignedIssues(assigneeId: ID!): [Issue!]!
-  getUnassignedIssues: [Issue!]!
-  getIssuesByProject(projectId: ID!): [Issue!]!
-  getIssuesByComponent(component: String!): [Issue!]!
-  getIssuesByEpic(epicId: ID!): [Issue!]!
-  getIssuesByRelatedIssue(issueId: ID!): [Issue!]!
-  getIssuesWithAttachments: [Issue!]!
-  getIssuesWithoutAssignee: [Issue!]!
-  getIssuesByWatchers(watcherId: ID!): [Issue!]!
-  getIssuesByStatus(status: String!): [Issue!]!
-  getIssuesByPriority(priority: String!): [Issue!]!
-  getIssuesByAssignee(assignee: String!): [Issue!]!
+  findAllIssue: [Issue!]!
+  findOneIssue(id: String!): Issue!
+  findCloseIssues: [Issue!]!
+  findOpenIssues: [Issue!]!
+  findLowPriorityIssues: [Issue!]!
+  findHighPriorityIssues: [Issue!]!
+  findMediumPriorityIssues: [Issue!]!
+  findIssuesByComponent(componentId: String!): [Issue!]!
+  findIssuesByProject(projectId: String!): [Issue!]!
+  findIssuesByAssignee(assigne: String!): [Issue!]!
+  findOneComment(id: String!): Comment!
+  findAllAttachment: [Attachment!]!
+  findOneAttachment(id: String!): Attachment!
+  findAllProject: [Project!]!
+  findOneProject(id: String!): Project!
+  findAllComponent: [Component!]!
+  findOneComponent(id: ID!): Component!
 }
 
 type Mutation {
-  createIssue(title: String!, description: String!, priority: Priority!, assignee: String!): Issue
-  updateIssue(issueId: ID!, title: String, description: String, priority: Priority, status: Status, assignee: String): Issue
-  changeIssueStatus(issueId: ID!, status: Status!): Issue
-  deleteIssue(issueId: ID!): ID
-  assignIssue(issueId: ID!, assignee: String!): Issue
-  updateIssueStatus(issueId: ID!, status: Status!): Issue
-  updateIssuePriority(issueId: ID!, priority: Priority!): Issue
-  deleteAllClosedIssues: Boolean
-  deleteAllIssues: Boolean
-  addLabelToIssue(issueId: ID!, label: String!): Issue
-  removeLabelFromIssue(issueId: ID!, label: String!): Issue
-  addTagToIssue(issueId: ID!, tag: String!): Issue
-  removeTagFromIssue(issueId: ID!, tag: String!): Issue
-  addCommentToIssue(issueId: ID!, content: String!): Comment
-  updateComment(commentId: ID!, content: String!): Comment
-  deleteComment(commentId: ID!): ID
-  addWatcherToIssue(issueId: ID!, watcherId: ID!): Issue
-  removeWatcherFromIssue(issueId: ID!, watcherId: ID!): Issue
-  addAttachmentToIssue(issueId: ID!, fileUrl: String!, description: String): Issue
-  updateAttachmentDescription(attachmentId: ID!, description: String!): Attachment
-  deleteAttachment(attachmentId: ID!): ID
-  createMilestone(title: String!, dueDate: String!): Milestone
-  updateMilestone(milestoneId: ID!, title: String, dueDate: String): Milestone
-  deleteMilestone(milestoneId: ID!): ID
-  createProject(title: String!, description: String!): Project
-  updateProject(projectId: ID!, title: String, description: String): Project
-  deleteProject(projectId: ID!): ID
-  createComponent(projectId: ID!, title: String!, description: String): Component
-  updateComponent(componentId: ID!, title: String, description: String): Component
+  createIssue(createIssueInput: CreateIssueInput!): StatusResult!
+  changeIssueStatus(changeIssueStatusInput: ChangeIssueStatusInput!): StatusResult!
+  changeIssuePriority(id: String!, priority: String!): StatusResult!
+  updateIssue(updateIssueInput: UpdateIssueInput!): StatusResult!
+  assignIssue(issueId: String!, assigne: String!): StatusResult!
+  removeTagFromIssue(issueId: String!): StatusResult!
+  removeCloseIssue: StatusResult!
+  removeIssue(id: String!): StatusResult!
+  removeAllIssue: StatusResult!
+  addCommentToIssue(addCommentToIssueInput: AddCommentToIssueInput!): StatusResult!
+  updateComment(updateCommentInput: UpdateCommentInput!): StatusResult!
+  removeComment(id: String!): StatusResult!
+  addAttachmentToIssue(createAttachmentInput: CreateAttachmentInput!): StatusResult!
+  updateAttachment(updateAttachmentInput: UpdateAttachmentInput!): StatusResult!
+  removeAttachment(id: String!): StatusResult!
+  createProject(createProjectInput: CreateProjectInput!): Project!
+  updateProject(updateProjectInput: UpdateProjectInput!): StatusResult!
+  removeProject(id: String!): StatusResult!
+  createComponent(createComponentInput: CreateComponentInput!): StatusResult!
+  updateComponent(updateComponentInput: UpdateComponentInput!): StatusResult!
+  removeComponent(id: ID!): StatusResult!
 }
 ```
 
@@ -256,6 +239,27 @@ mv ./.env.example ./.env
 great ! 
 
 Now run the app with the following command
+
+```
+npm run start:dev
+```
+
+
+## Test app 
+
+if your test app following steps :‌
+
+1- get the .env file and use this : 
+
+```
+POSTGRES_DATABASE_TEST="your-database"
+```
+
+2- run command :
+
+```
+npm run test:e2e
+```
 
 ```
 npm run start:dev
