@@ -26,6 +26,7 @@ export class CommentResolver {
     return this.commentService.findOne(id);
   }
 
+
   @Mutation(() => StatusResult , {name : 'updateComment'})
   updateComment(@Args('updateCommentInput') updateCommentInput: UpdateCommentInput) {
     return this.commentService.update(updateCommentInput.id, updateCommentInput);
