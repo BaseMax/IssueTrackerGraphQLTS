@@ -14,7 +14,7 @@ export class ComponentResolver {
     return this.componentService.create(createComponentInput);
   }
 
-  @Query(() => [Component], { name: 'component' })
+  @Query(() => [Component], { name: 'findAllComponent' })
   findAll() {
     return this.componentService.findAll();
   }
