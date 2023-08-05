@@ -98,13 +98,11 @@ The Issue Tracker GraphQL API is a powerful system for managing software develop
 **Note** 
 The responses of creating, updating and deleting are answered with StatusResult
 
-‍‍‍‍‍‍‍‍‍‍```
-export interface StatusResult { 
+‍‍‍‍‍‍‍```export interface StatusResult { 
     message : string ; 
     success : boolean ; 
     id? : string; 
 }
-
 ```
 
 ## GraphQL Models
