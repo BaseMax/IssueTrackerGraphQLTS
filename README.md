@@ -261,9 +261,7 @@ POSTGRES_DATABASE_TEST="your-database"
 npm run test:e2e
 ```
 
-```
-npm run start:dev
-```
+
 
 ## Contributing
 
