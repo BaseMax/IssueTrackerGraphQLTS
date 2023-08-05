@@ -152,6 +152,8 @@ export class IssueService {
     }
   }
 
+  async (){}
+
   async changeIssueStatus(changeIssueStatusInput:ChangeIssueStatusInput):Promise<StatusResult>{
      let {
       issueId , 
