@@ -1,6 +1,8 @@
 import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
 import { Attachment } from 'src/attachment/entities/attachment.entity';
 import { Comment } from 'src/comment/entities/comment.entity';
+import { Component } from 'src/component/entities/component.entity';
+import { Project } from 'src/project/entities/project.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Priority } from '../enums/priority.enum';
 import { Status } from '../enums/status.enum';
@@ -48,5 +50,13 @@ export class Issue {
   @Field(()=>[Attachment])
   @OneToMany(()=>Attachment , (attachment)=>attachment.issue)
   attachments : Attachment[]
+
+  @Field(()=>[Component])
+  @OneToMany(()=>Component , (component)=>component.issue)
+  components : Component[]
+
+  @Field(()=>[Project])
+  @OneToMany(()=>Project , (project)=>project.issue)
+  projects : Project[]
 }
 
