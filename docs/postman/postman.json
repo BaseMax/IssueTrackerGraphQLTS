@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "ffc57cf0-4654-4dff-bcb6-0e1302febb55",
-		"name": "Postman Collection (from GraphQL) Copy",
+		"_postman_id": "13a6f41d-e11f-44e0-b904-a228d901b59e",
+		"name": "Postman Collection (from GraphQL)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "16572967"
 	},
@@ -82,6 +82,48 @@
 							"graphql": {
 								"query": "mutation updateIssue ($updateIssueInput: UpdateIssueInput!) {\n    updateIssue (updateIssueInput: $updateIssueInput) {\n        message\n        success\n        id\n    }\n}",
 								"variables": "{\n  \"updateIssueInput\": {\n    \"title\": \"\",\n    \"description\": \"\",\n    \"priority\": \"\",\n    \"status\": \"\",\n    \"assignee\": \"\",\n    \"labels\": [\n      \"\"\n    ],\n    \"tags\": [\n      \"\"\n    ],\n    \"id\": \"\"\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "assignIssue",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation assignIssue ($issueId: String!, $assigne: String!) {\n    assignIssue (issueId: $issueId, assigne: $assigne) {\n        message\n        success\n        id\n    }\n}",
+								"variables": "{\n  \"issueId\": \"\",\n  \"assigne\": \"\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "removeTagFromIssue",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation removeTagFromIssue ($issueId: String!) {\n    removeTagFromIssue (issueId: $issueId) {\n        message\n        success\n        id\n    }\n}",
+								"variables": "{\n  \"issueId\": \"\"\n}"
 							}
 						},
 						"url": {
@@ -344,6 +386,69 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "createComponent",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation createComponent ($createComponentInput: CreateComponentInput!) {\n    createComponent (createComponentInput: $createComponentInput) {\n        message\n        success\n        id\n    }\n}",
+								"variables": "{\n  \"createComponentInput\": {\n    \"title\": \"\",\n    \"description\": \"\"\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateComponent",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation updateComponent ($updateComponentInput: UpdateComponentInput!) {\n    updateComponent (updateComponentInput: $updateComponentInput) {\n        message\n        success\n        id\n    }\n}",
+								"variables": "{\n  \"updateComponentInput\": {\n    \"title\": \"\",\n    \"description\": \"\",\n    \"id\": 0\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "removeComponent",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation removeComponent ($id: ID!) {\n    removeComponent (id: $id) {\n        message\n        success\n        id\n    }\n}",
+								"variables": "{\n  \"id\": 0\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -444,6 +549,111 @@
 							"graphql": {
 								"query": "query findLowPriorityIssues {\n    findLowPriorityIssues {\n        id\n        title\n        description\n        priority\n        status\n        assignee\n        labels\n        tags\n    }\n}",
 								"variables": "{}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findHighPriorityIssues",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query findHighPriorityIssues {\n    findHighPriorityIssues {\n        id\n        title\n        description\n        priority\n        status\n        assignee\n        labels\n        tags\n    }\n}",
+								"variables": "{}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findMediumPriorityIssues",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query findMediumPriorityIssues {\n    findMediumPriorityIssues {\n        id\n        title\n        description\n        priority\n        status\n        assignee\n        labels\n        tags\n    }\n}",
+								"variables": "{}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findIssuesByComponent",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query findIssuesByComponent ($componentId: String!) {\n    findIssuesByComponent (componentId: $componentId) {\n        id\n        title\n        description\n        priority\n        status\n        assignee\n        labels\n        tags\n    }\n}",
+								"variables": "{\n  \"componentId\": \"\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findIssuesByProject",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query findIssuesByProject ($projectId: String!) {\n    findIssuesByProject (projectId: $projectId) {\n        id\n        title\n        description\n        priority\n        status\n        assignee\n        labels\n        tags\n    }\n}",
+								"variables": "{\n  \"projectId\": \"\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findIssuesByAssignee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query findIssuesByAssignee ($assigne: String!) {\n    findIssuesByAssignee (assigne: $assigne) {\n        id\n        title\n        description\n        priority\n        status\n        assignee\n        labels\n        tags\n    }\n}",
+								"variables": "{\n  \"assigne\": \"\"\n}"
 							}
 						},
 						"url": {
@@ -559,6 +769,48 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "findAllComponent",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query findAllComponent {\n    findAllComponent {\n        id\n        title\n        description\n    }\n}",
+								"variables": "{}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findOneComponent",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query findOneComponent ($id: ID!) {\n    findOneComponent (id: $id) {\n        id\n        title\n        description\n    }\n}",
+								"variables": "{\n  \"id\": 0\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
@@ -567,7 +819,8 @@
 		{
 			"key": "url",
 			"value": "",
-			"type": "any"
+			"type": "any",
+			"description": "URL for the request."
 		}
 	]
 }
