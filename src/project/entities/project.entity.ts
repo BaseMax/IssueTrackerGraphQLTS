@@ -1,5 +1,6 @@
 import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Issue } from 'src/issue/entities/issue.entity';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @ObjectType()
 @Entity('Project')
@@ -15,4 +16,8 @@ export class Project {
   @Field()
   @Column({type : 'varchar' , nullable : false })
   description : string ; 
+
+  @Field(()=>Issue)
+  @ManyToOne(()=>Issue , (issue)=>issue)
+  issue : Issue ;
 }
